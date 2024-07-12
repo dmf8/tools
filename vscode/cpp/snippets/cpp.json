@@ -1,0 +1,34 @@
+{
+    "Create .h file": {
+        "prefix": "myheader",
+        "body": [
+            "#ifndef ${1:HEADER_NAME}_H",
+            "#define ${1:HEADER_NAME}_H\n",
+            "class ${2:ClassName} {",
+            "public:",
+            "    ${2:ClassName}();",
+            "    ~${2:ClassName}();",
+            "};",
+            "#endif // ${1:HEADER_NAME}_H"
+        ],
+        "description": "Create a new header file with basic class structure"
+    },
+    "Create .cpp file": {
+        "prefix": "mycpp",
+        "body": [
+            "#include \"${1:header_file}.h\"\n\n",
+            "${2:ClassName}::${2:ClassName}() {\n",
+            "\n}\n\n",
+            "${2:ClassName}::~${2:ClassName}() {\n",
+            "\n}\n"
+        ],
+        "description": "Create a new cpp file with basic class structure"
+    },
+    "iostream": {
+        "prefix": "iostream",
+        "body": [
+            "#include <iostream>",
+            "using namespace std;"
+        ]
+    }
+}
