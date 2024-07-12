@@ -1,0 +1,18 @@
+{
+    "cmake header": {
+        "prefix": "cmake",
+        "body": [
+            "cmake_minimum_required(VERSION 3.5)",
+            "project($1)",
+            "add_executable(\\${PROJECT_NAME} $2)"
+        ],
+        "description": "Log output to console"
+    },
+    "message boundary": {
+        "prefix": "message_boundary",
+        "body": [
+            "message(\"---------------------\")",
+            "message(\"---------------------\")"
+        ]
+    }
+}
