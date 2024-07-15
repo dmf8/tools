@@ -12,7 +12,8 @@
         "prefix": "message_boundary",
         "body": [
             "message(\"---------------------\")",
-            "message(\"---------------------\")"
+            "message(\"$0\")",
+            "message(\"\")"
         ]
     },
     "cmake_dir": {
