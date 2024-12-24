@@ -3,30 +3,37 @@
 # 2. new text
 # 3. files...
 
+# usage
+# replace file content of certain pattern in regexp format with given string
+# 1. provide the regexp pattern of string to be replaced within ""
+# 2. provide the replacement string within ""
+# 3. name several files
 
 import sys
+import re
 
 str_org = ""
 str_replace = ""
 
 
 def checkLine(line):
-    return True
-
-
-def tryReplaceLine(line):
-    pass
+    global str_org
+    global str_replace
+    count = len(re.findall(str_org, line))
+    line = re.sub(str_org, str_replace, line)
+    return line, count
 
 
 def handleFile(file):
     lines = []
     with open(file, "r+") as f:
         lines = f.readlines()
-        print(lines)
+        # print(lines)
+        count = 0
         for i in range(len(lines)):
-            tryReplaceLine(lines[i])
-            if checkLine(lines[i]):
-                lines[i] = "replace\n"
+            lines[i], temp = checkLine(lines[i])
+            count += temp
+        print(f"find {count} matches in file {file}")
 
     with open(file, "w")as f:
         f.writelines(lines)
@@ -41,9 +48,6 @@ if len(args) < 4:
 str_org = args[1]
 str_replace = args[2]
 files = args[3:]
-
-# file check
-
 
 # handle each file
 for f in files:
