@@ -1,4 +1,8 @@
 import file_check
 
-print(file_check.checkExistingFileAbsPath("md5"))
-print(file_check.checkExistingFileAbsPath("md5.py"))
+content = ""
+with open("ade", "r") as f:
+    content = f.read()
+
+with open("xxx", "w") as f:
+    f.write(content)
