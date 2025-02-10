@@ -3,13 +3,21 @@ class CommandReader:
         self.cmd = ""
         self.indicator = indicator
 
+    def before(self) -> None:
+        pass
+
+    def after(self) -> None:
+        pass
+
     def run(self) -> None:
+        self.before()
         while True:
             self.cmd = input(self.indicator)
             if "exit" == self.cmd or "q" == self.cmd:
                 break
             else:
                 self.handle()
+        self.after()
 
     def handle(self):
         print(self.cmd)
