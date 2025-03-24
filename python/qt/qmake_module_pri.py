@@ -1,6 +1,15 @@
 import argparse
 import os
 
+# syntax
+parser = argparse.ArgumentParser(
+    description="auto add module include and compile info")
+parser.add_argument("module", help="module pro relative path")
+parser.add_argument("-r", "--root", metavar="",
+                    help="project root path, default=.")
+
+args = parser.parse_args()
+
 
 def priLines(module):
     lines = []
@@ -58,15 +67,6 @@ def selfIncludeLines(module, module_to_root):
     lines.append("include($${PRI_"+module.upper()+"})\n")
     return lines
 
-
-# args
-parser = argparse.ArgumentParser(
-    description="auto add module include and compile info")
-parser.add_argument("module", help="module pro relative path")
-parser.add_argument("-r", "--root", metavar="",
-                    help="project root path, default=.")
-
-args = parser.parse_args()
 
 # paths
 module_pro = args.module
