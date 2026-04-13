@@ -59,4 +59,6 @@ if args.recursive:
 else:
     entries = listNoRecursive(args.path, args.omit_folder)
 
+for e in entries:
+    print(f"{e[1]},{e[0]}")
 
