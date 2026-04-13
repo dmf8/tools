@@ -13,7 +13,6 @@ ap.add_argument("--omit_folder", action="store_true",
                 help="omit folders in non-recursive mode")
 ap.add_argument("path", nargs="?", default=".",
                 help="start path, default is \".\"")
-ap.add_argument("-o", "--output", help="output file", default="")
 args = ap.parse_args()
 
 # recursive
@@ -24,8 +23,10 @@ def listRecursive(root):
     walk_path = root
     for dir, paths, files in os.walk(walk_path):
         for file in files:
-            all_files.append(os.path.join(dir, file))
-    all_files.sort()
+            full_path = os.path.join(dir, file)
+            size = os.path.getsize(full_path)
+            all_files.append((full_path, size))
+    all_files.sort(key=lambda x: x[0])
     return all_files
 
 # no recursive
@@ -36,14 +37,19 @@ def listNoRecursive(root, omit_folder):
     os.chdir(root)
     list = os.listdir()
     list.sort()
+    result = []
     for i in range(len(list), 0, -1):
         if (os.path.isdir(list[i-1])):
             if omit_folder:
-                list.pop(i-1)
+                pass
             else:
-                list[i-1] = list[i-1]+"/"
+                result.append((list[i-1]+"/", 0))
+        else:
+            size = os.path.getsize(list[i-1])
+            result.append((list[i-1], size))
     os.chdir(cwd)
-    return list
+    result.sort(key=lambda x: x[0])
+    return result
 
 
 # execution
@@ -53,10 +59,4 @@ if args.recursive:
 else:
     entries = listNoRecursive(args.path, args.omit_folder)
 
-if args.output == "":
-    for e in entries:
-        print(e)
-else:
-    with open(args.output, "w") as f:
-        for e in entries:
-            f.write(e+"\n")
+
